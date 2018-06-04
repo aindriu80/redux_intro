@@ -1,6 +1,6 @@
 import { INCREMENT } from "./actions";
 import { Component } from "@angular/core";
-import { NgRedux } from "ng2-redux";
+import { NgRedux, select } from "ng2-redux";
 import { IAppState } from "./store";
 @Component({
   selector: "app-root",
@@ -9,9 +9,18 @@ import { IAppState } from "./store";
 })
 export class AppComponent {
   title = "app works!";
-  counter = 0;
+  @select() counter;
+  // @select(['messaging', 'newMessages']) newMessages;
+  // messaging.newMesages
+  @select((s: IAppState) => s.messaging.newMessages)
+  newMessagesCount;
 
-  constructor(private ngRedux: NgRedux<IAppState>) {}
+  constructor(private ngRedux: NgRedux<IAppState>) {
+    // var subscription = ngRedux.subscribe(() => {
+    //   var store = ngRedux.getState();
+    //   this.counter = store.counter;
+    // });
+  }
 
   increment() {
     // this.counter++;
