@@ -16,8 +16,28 @@ export const INITIAL_STATE: IAppState = {
   // };
 };
 
+class TodoActions{
+  constructor(private state, private action){
+
+  }
+  addTodo(){
+
+  }
+}
+function addTodo(state, action){
+  var newTodo = {id: state.todos.length +1, title:action}
+  return tassign(state, {
+    todos: state.todos.concat(newTodo),
+    lastUpdate:new Date()
+  });
+}
+
 export function rootReducer(state: Map<string, any>, action): Map<string, any> {
+  var actions = new TodoActions(state, action);
+
   switch (action.type) {
+    case ADD_TODO: return actions.addTodo();
+  
     case INCREMENT:
     
       // return { counter: state.counter + 1 };
